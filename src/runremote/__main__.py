@@ -6,7 +6,9 @@ import sys
 import os as oslib
 
 def run(host, user, password, cmd, get_result=False):
-    command = ["sshpass", "-p", password, "ssh", "-t", "-q", "-o", "StrictHostKeyChecking=no", f"{user}@{host}"] + cmd.split()
+    if isinstance(cmd, str):
+        cmd = cmd.split()
+    command = ["sshpass", "-p", password, "ssh", "-t", "-q", "-o", "StrictHostKeyChecking=no", f"{user}@{host}"] + cmd
     if get_result:
         p = subprocess.Popen(command, stdout=PIPE, stderr=PIPE, stdin=PIPE)
         p.wait()
@@ -21,11 +23,13 @@ def main():
     parser.add_argument("--user", required=True, type=str, help="Remote user")
     parser.add_argument("--pass", required=False, type=str, help="Remote password")
     parser.add_argument("file", type=str, help="Executable to launch")
+    parser.add_argument("args", nargs="*", help="Executable arguments")
     args = parser.parse_args()
     host : str = args.host
     user : str = args.user
     password : str | None = getattr(args, "pass")
     file : str = args.file
+    arguments = args.args
 
     if password is None:
         password = getpass.getpass()
@@ -44,8 +48,8 @@ def main():
         print("Copying failed")
         exit(1)
     if os == "windows":
-        exit(run(host, user, password, "_a.exe"))
+        exit(run(host, user, password, ["_a.exe"] + arguments))
     elif os == "linux":
-        exit(run(host, user, password, "./_a.exe"))
+        exit(run(host, user, password, ["./_a.exe"] + arguments))
 
 if __name__ == "__main__": main()
