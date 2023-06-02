@@ -36,7 +36,7 @@ def main():
     elif os_raw == b'%OS%\n':
         os = "linux"
     else:
-        print("Unable to recognize os:", os_raw)
+        print("Unable to recognize os:", os_raw, "(You may be supplied an invalid password)")
         exit(1)
     
     scp = oslib.system(f'sshpass -p "{password}" scp -o StrictHostKeyChecking=no "{file}" "{user}@{host}:_a.exe"')
