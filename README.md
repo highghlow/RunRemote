@@ -1,23 +1,5 @@
-# Run Remote
-Run executables remotely through ssh
-## Requirements
-`sshserver` open the remote pc
+# The project has moved to [codeberg](https://codeberg.org/highghlow/RunRemote)
+- [Where?](https://codeberg.org/highghlow/RunRemote/)
+- [Why?](https://sfconservancy.org/GiveUpGitHub/)
 
-`ssh`, `scp`, `sshpass` on the local pc
-## Installation
-```
-python -m pip install runremote
-```
-## Quickstart
-```
-usage: python -m runremote [-h] --host HOST --user USER [--pass PASS] file
-
-positional arguments:
-  file         Executable to launch
-
-options:
-  -h, --help   show this help message and exit
-  --host HOST  host[:port]
-  --user USER  Remote user
-  --pass PASS  Remote password
-```
+![image](https://github.com/user-attachments/assets/45d80320-cb3c-452b-a59d-135d294d061a)
